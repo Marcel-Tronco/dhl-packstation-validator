@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "name": "dhl-packstation-validator",
+  "version": "0.0.0",
+  "description": "This package validates addresses of a DHL Packstation or lists the nearby DHL Packstation close to an zip code.",
+  "main": "node-packstation.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marcel Tronco",
+  "license": "ISC"
+}
