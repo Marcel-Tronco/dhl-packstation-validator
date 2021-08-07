@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+import fetch from "node-fetch"
 
 const isAllNum = (str) => {
   if (
@@ -12,7 +12,7 @@ const isAllNum = (str) => {
   }
 }
 
-const isValidPackstationNumber = (packstationNumber) => {
+export const isValidPackstationNumber = (packstationNumber) => {
   if (
     isAllNum(packstationNumber) &&
     packstationNumber.length === 3
@@ -24,7 +24,7 @@ const isValidPackstationNumber = (packstationNumber) => {
   }
 }
 
-const isValidZipCode = (zipCode) => {
+export const isValidZipCode = (zipCode) => {
   if (
     isAllNum(zipCode) &&
     zipCode.length === 5
@@ -38,37 +38,45 @@ const isValidZipCode = (zipCode) => {
 
 const getAddressList = async (zipCode) => {
 
-  if ( ! isValidZipCode ) throw new Error("ZIPCODE ERROR: invalid input zipcode")
+  if ( ! isValidZipCode(zipCode) ) {
+    console.log("Got here")
+    throw new Error("ZIPCODE ERROR: invalid input zipcode")
+  }
 
-  url = `https://www.dhl.de/int-postfinder/postfinder_webservice/rest/v1/nearbySearch?address=${zipCode}&locationType=PACKSTATION`
+  const url = `https://www.dhl.de/int-postfinder/postfinder_webservice/rest/v1/nearbySearch?address=${zipCode}&locationType=PACKSTATION`
 
   try {
-    addressList = await fetch(url)
+    const response = await fetch(url)
+    const addressList = await response.json()
     return addressList    
   } catch (error) {
-    throw new Error("API-ERROR: couldn't gather the list of Packstation")
+    throw new Error(`API-ERROR: couldn't gather the list of Packstation\nActual Error: ${error}`)
   }
 }
 
 
-const isValidAddress = (zipCode, packstationNumber) => {
+const isValidAddress = async (zipCode, packstationNumber) => {
   if (
-    ! isValidZipCode ||
-    !  isValidPackstationNumber
+    ! isValidZipCode(zipCode) ||
+    ! isValidPackstationNumber(packstationNumber)
   ) {
     return false
   }
-  addressList = getAddressList(zipCode)
-  for (ps of addressList) {
-    if (ps.primaryKeyZipRegion 
-      && ps.primaryKeyZipRegion === packstationNumber
-      && ps.zipCode
-      && ps.zipCode === zipCode
-      ) {
-        return true
-      }
+  try {
+    const addressList = await getAddressList(zipCode)
+    for (let ps of addressList.pfLocations) {
+      if (ps.primaryKeyZipRegion 
+        && ps.primaryKeyZipRegion === packstationNumber
+        && ps.zipCode
+        && ps.zipCode === zipCode
+        ) {
+          return true
+        }
+    }
+    return false  
+  } catch (error) {
+    console.log(error)
   }
-  return false
 }
 
 export default {
