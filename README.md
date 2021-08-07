@@ -8,9 +8,11 @@ This package helps to validate the address of a Packstation of DHL by its Number
 ```
 import { isValidAddress } from 'dhl-packstation-validation'
 
-if (isValidAddress(<your zip code>, <your packstation number>)) {
-  // do something
-}
+isValidAddress(<your zip code>, <your packstation number>).then((isValid) =>
+ if (isValid) {
+   // do something
+ }
+)
 ```
 ### Retrieve List of Packstationen
 
