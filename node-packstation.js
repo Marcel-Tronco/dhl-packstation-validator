@@ -1,5 +1,10 @@
 import fetch from "node-fetch"
 
+/**
+ * Checks if a given string is numerical
+ * @param { string } str - the string to be checked
+ * @returns { boolean }
+ */
 const isAllNum = (str) => {
   if (
     typeof str === 'string' &&
@@ -12,6 +17,11 @@ const isAllNum = (str) => {
   }
 }
 
+/**
+ * Checks if a given string is a valid number for a Packstation
+ * @param { string } packstationNumber
+ * @returns { boolean }
+ */
 export const isValidPackstationNumber = (packstationNumber) => {
   if (
     isAllNum(packstationNumber) &&
@@ -23,6 +33,12 @@ export const isValidPackstationNumber = (packstationNumber) => {
     return false
   }
 }
+
+/**
+ * Checks if a given string is a german zip code
+ * @param { string } zipCode
+ * @returns { boolean}
+ */
 
 export const isValidZipCode = (zipCode) => {
   if (
@@ -36,6 +52,11 @@ export const isValidZipCode = (zipCode) => {
   }
 }
 
+/**
+ * Retrieve the json with addresses of Packstationen in the range of the zipCode
+ * @param { string } zipCode - german zip code
+ * @returns { object } returns the javascript representation of the json returned from the api
+ */
 const getAddressList = async (zipCode) => {
 
   if ( ! isValidZipCode(zipCode) ) {
@@ -54,7 +75,12 @@ const getAddressList = async (zipCode) => {
   }
 }
 
-
+/**
+ * Checks if a pair of PackstationNumber and zipCode match to a valid address.
+ * @param { string } zipCode - german zip code of the Packstation
+ * @param { string } packstationNumber - number of the Packstation
+ * @returns { boolean }
+ */
 const isValidAddress = async (zipCode, packstationNumber) => {
   if (
     ! isValidZipCode(zipCode) ||
