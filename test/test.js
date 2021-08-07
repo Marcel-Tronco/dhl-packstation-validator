@@ -6,11 +6,12 @@ const isValidAddress = nodePackstation.isValidAddress
 const listAddresses = nodePackstation.listAddresses
 
 describe('Test all functions', function() {
+  this.timeout(10000)
   describe('Test list retrieval', function() {
-    it('Simple list can be gathered', async function() {
+    it('Simple list can be gathered and has expected form', async function() {
       const result = await listAddresses("10115")
-      expect(result).to.only.have.keys('pfLocations', 'centerOfSearch');
-      expect(result.pfLocations.length).to.be.greaterThan(0);
+      expect(result).to.have.key('pfLocations');
+      expect(result.pfLocations[0]).to.have.keys("zipCode", "primaryKeyZipRegion")
     })
    })
   describe('basic validity checks', function(){
@@ -29,7 +30,7 @@ describe('Test all functions', function() {
       assert.strictEqual(isValidPackstationNumber("20!"), false)
     })
   })
-  describe('Test address validation', async function() {
+  describe('Test address validation', function() {
     it('Simple address can be verified', async function() {
       const result = await isValidAddress("10115", "535")
       assert.strictEqual(result, true)
@@ -44,5 +45,3 @@ describe('Test all functions', function() {
     })
   })
 })
-//isValidAddress("10437", "a08").then((result) => console.log(result))
-//listAddresses('!2312').then((result)=> console.log(result)
