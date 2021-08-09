@@ -40,12 +40,11 @@ export const isValidZipCode = (zipCode) => {
 /**
  * Retrieve the json with addresses of Packstationen in the range of the zipCode
  * @param { string } zipCode - german zip code
- * @returns { object } returns the javascript representation of the json returned from the api
+ * @returns { Promise < object > } returns the javascript representation of the json returned from the api
  */
 const getAddressList = async (zipCode) => {
 
   if ( ! isValidZipCode(zipCode) ) {
-    console.log("Got here")
     throw new Error("ZIPCODE ERROR: invalid input zipcode")
   }
 
