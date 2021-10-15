@@ -1,0 +1,19 @@
+name: Check for DHL-API-Changes
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+
+jobs:
+  build:
+    name: Weekly DHL API check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: build
+        run: npm install
+      - name: test
+        run: npm run test
