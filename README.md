@@ -24,3 +24,8 @@ listAddresses(<your zip code>).then((list) => {
 })
 
 ```
+### Status of the package
+
+There are weekly tests that check if the package still matches the DHL api...
+
+[![Check for DHL-API-Changes](https://github.com/Marcel-Tronco/dhl-packstation-validator/actions/workflows/check_for_api_changes.yaml/badge.svg)](https://github.com/Marcel-Tronco/dhl-packstation-validator/actions/workflows/check_for_api_changes.yaml)
