@@ -1,4 +1,4 @@
-import fetch from "node-fetch"
+const fetch = require("node-fetch")
 
 /**
  * Checks if a given string is numerical
@@ -17,7 +17,7 @@ const isAllNum = (str) => {
  * @param { string } packstationNumber
  * @returns { boolean }
  */
-export const isValidPackstationNumber = (packstationNumber) => {
+const isValidPackstationNumber = (packstationNumber) => {
   return (
     isAllNum(packstationNumber) &&
     packstationNumber.length === 3
@@ -30,7 +30,7 @@ export const isValidPackstationNumber = (packstationNumber) => {
  * @returns { boolean }
  */
 
-export const isValidZipCode = (zipCode) => {
+const isValidZipCode = (zipCode) => {
   return (
     isAllNum(zipCode) &&
     zipCode.length === 5
@@ -89,7 +89,9 @@ const isValidAddress = async (zipCode, packstationNumber) => {
   }
 }
 
-export default {
+module.exports = {
   listAddresses: getAddressList,
-  isValidAddress
+  isValidAddress,
+  isValidZipCode,
+  isValidPackstationNumber
 }
