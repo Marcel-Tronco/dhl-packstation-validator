@@ -1,6 +1,6 @@
 {
   "name": "dhl-packstation-validation",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "This package validates addresses of a DHL Packstation or lists the nearby DHL Packstation close to an zip code.",
   "main": "node-packstation.js",
   "type": "commonjs",
